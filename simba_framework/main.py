@@ -38,7 +38,7 @@ class Framework:
                   f' {Framework.decode_value(request_params)}')
 
         # Find new controller (page controller pattern)
-        if path in self.fronts_lst:
+        if path in self.routes_lst:
             view = self.routes_lst[path]
         else:
             view = PageNotFound404()
