@@ -2,49 +2,62 @@ from datetime import date
 
 from simba_framework.templator import render
 from patterns.сreational_patterns import Engine, Logger
+from patterns.structural_patterns import AppRoute, Debug
 
 site = Engine()
 logger = Logger('main')
 
+routes = {}
 
-# Main page controller
+
+# Controller - Main page
+@AppRoute(routes=routes, url='/')
 class Index:
+    @Debug(name='Index')
     def __call__(self, request):
-        return '200 OK', render('index.html', date=request.get('date', None))
+        return '200 OK', render('index.html', objects_list=site.categories)
 
 
-# Content controller
+# Controller - Content
+@AppRoute(routes=routes, url='/content/')
 class Content:
+    @Debug(name='Content')
     def __call__(self, request):
-        return '200 OK', render('content.html', date=request.get('date', None))
+        return '200 OK', render('content.html')
 
 
-# Contacts controller
+# Controller - Contacts
+@AppRoute(routes=routes, url='/contacts/')
 class Contacts:
     def __call__(self, request):
-        return '200 OK', render('contacts.html', date=request.get('date', None))
+        return '200 OK', render('contacts.html')
 
 
-# About controller
+# Controller - About
+@AppRoute(routes=routes, url='/about/')
 class About:
-    # {'method': 'GET', 'request_params': {'id': '1', 'category': '10'}}
+    @Debug(name='About')
     def __call__(self, request):
-        return '200 OK', render('about.html', date=request.get('date', None))
+        return '200 OK', render('about.html')
 
 
-# Schedule controller
+# Controller - Schedule
+@AppRoute(routes=routes, url='/study-programs/')
 class StudyPrograms:
+    @Debug(name='StudyPrograms')
     def __call__(self, request):
-        return '200 OK', render('study-programs.html', date=date.today())
+        return '200 OK', render('study-programs.html', data=date.today())
 
 
-# 404 controller
+# Controller - 404
 class NotFound404:
+    @Debug(name='NotFound404')
     def __call__(self, request):
         return '404 WHAT', '404 PAGE Not Found'
 
 
-# Courses list controller
+# Controller - Courses list
+@AppRoute(routes=routes, url='/courses-list/')
 class CoursesList:
     def __call__(self, request):
         logger.log('Courses list')
@@ -58,7 +71,8 @@ class CoursesList:
             return '200 OK', 'No courses have been added yet'
 
 
-# Create course controller
+# Controller - Create course
+@AppRoute(routes=routes, url='/create-course/')
 class CreateCourse:
     category_id = -1
 
@@ -94,12 +108,13 @@ class CreateCourse:
                 return '200 OK', 'No categories have been added yet'
 
 
-# контроллер - создать категорию
+# Controller - Create category
+@AppRoute(routes=routes, url='/create-category/')
 class CreateCategory:
     def __call__(self, request):
 
         if request['method'] == 'POST':
-            # метод пост
+            # Method - POST
 
             data = request['data']
 
@@ -123,15 +138,17 @@ class CreateCategory:
                                     categories=categories)
 
 
-# контроллер - список категорий
+# Controller - Category list
+@AppRoute(routes=routes, url='/category-list/')
 class CategoryList:
     def __call__(self, request):
-        logger.log('Categories list')
+        logger.log('Category list')
         return '200 OK', render('category-list.html',
                                 objects_list=site.categories)
 
 
-# контроллер - копировать курс
+@AppRoute(routes=routes, url='/copy-course/')
+# Controller - Copy course
 class CopyCourse:
     def __call__(self, request):
         request_params = request['request_params']

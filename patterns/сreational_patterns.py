@@ -29,7 +29,7 @@ class UserFactory:
         return cls.types[type_]()
 
 
-# Generating pattern - Prototype
+# Generating pattern - Prototype - Course
 class CoursePrototype:
     # Courses prototype
     def clone(self):
