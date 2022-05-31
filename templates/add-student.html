@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Create course{% endblock %}
+{% block body %}
+<div class="container" style="margin-top: 1rem">
+    <div>
+        <li>
+            <a href="/student-list/">Students list</a>
+        </li>
+        <li>
+            <a href="/create-student/">Create student</a>
+        </li>
+    </div>
+    <hr>
+    <h3>ADD STUDENT TO COURSE</h3>
+    <form method="post">
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="course_name">
+            {% for item in courses %}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="student_name">
+            {% for item in students %}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary" type="submit" style="margin-top: 1rem">ADD</button>
+    </form>
+</div>
+{% endblock %}

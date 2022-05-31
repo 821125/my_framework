@@ -25,13 +25,25 @@
     <div style="margin-top: 1rem">
         {% for item in objects_list %}
         <li>
-            {{item.name}} <span> - numer of courses: {{item.course_count()}}</span>
+            {{item.name}} <span> - number of courses: {{item.course_count()}}</span>
             <a href="/courses-list/?id={{item.id}}">show courses</a>
         </li>
         {% endfor %}
     </div>
     <div align="center" style="margin-top: 1rem">
         <a href="/create-category/">CREATE NEW CATEGORY</a>
+    </div>
+    <hr>
+    <div>
+        <li>
+            <a href="/student-list/">Students list</a>
+        </li>
+        <li>
+            <a href="/create-student/">Create student</a>
+        </li>
+        <li>
+            <a href="/add-student/">Add student to the course</a>
+        </li>
     </div>
 </div>
 {% endblock %}

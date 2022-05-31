@@ -1,23 +1,22 @@
 {% extends "base.html" %}
-{% block title %}About{% endblock %}
+{% block title %}Category list{% endblock %}
 {% block body %}
 <h3 align="center">
     CATEGORY LIST
 </h3>
-<a href="/">назад</a>
-
-<h1>Список категорий</h1>
-<ul>
-
-    {% for item in objects_list %}
-    <li>
-        {{item.name}} <span>Количество курсов: {{item.course_count()}}</span>
-    </li>
-    {% endfor %}
-</ul>
-
-<div>
-    <li><a href="/courses-list/">Список курсов</a></li>
-    <li><a href="/create-course/">Создать курс</a></li>
+<div class="container" style="margin-top: 1rem">
+    <ul>
+        {% for item in objects_list %}
+        <li>
+            {{item.name}} <span> count: {{item.course_count()}}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <div>
+        <li><a href="/courses-list/">Courses list</a></li>
+        <li><a href="/create-course/">Create course</a></li>
+    </div>
+    <hr>
+    <a href="/">back</a>
+    {% endblock %}
 </div>
-{% endblock %}
